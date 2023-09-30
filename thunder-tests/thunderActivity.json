@@ -1,0 +1,277 @@
+[
+  {
+    "_id": "4b7b75a0-4283-4d8b-bcca-315ce417555b",
+    "colId": "history",
+    "containerId": "",
+    "name": "login",
+    "url": "https://app.kennatech.vn/mobileapp/api/Authentication/Authenticate",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-05-31T02:22:27.855Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "18d446e9-975e-4c0d-89b5-8a27a00ac822",
+    "colId": "history",
+    "containerId": "",
+    "name": "User Info",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/ApplicationUser(25b14b84-a59d-4410-9c54-4c2d3ccbca19)",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-05-31T03:49:34.468Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE2ODU0ODE3NDV9.WpgolMZ7fa8uio6GsKIVywyhtk7SOEZ6GJMIBjfg7Qs"
+    },
+    "tests": []
+  },
+  {
+    "_id": "a3842802-ff62-4240-a850-6248cb34a914",
+    "colId": "history",
+    "containerId": "",
+    "name": "Nhat ky canh tac",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/Ticket",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-06-09T03:22:02.838Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE4NDM1MzYwNTB9.qjgqiZJ3UsR0foWqzzNhifd-b1jrhnSlSBDrnBX6eQk"
+    },
+    "tests": []
+  },
+  {
+    "_id": "1c77e6f4-0f67-490a-973f-fdd1d9eab427",
+    "colId": "history",
+    "containerId": "",
+    "name": "Chi Tiet Nhat ky canh tac",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/ChiTietNhatKy?$expand=CongViec_TinhTrang,NhatKyCanhTac",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-05-31T10:29:23.203Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [
+      {
+        "name": "$expand",
+        "value": "CongViec_TinhTrang,NhatKyCanhTac",
+        "isPath": false
+      }
+    ],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE2ODU1MDY4NzN9.2gZSyFQjO6OaLKmzGTKfS6DzrdZxybK6_fZ60i6iGWg"
+    },
+    "tests": []
+  },
+  {
+    "_id": "7402a1ed-7959-4888-83c6-fa9544465188",
+    "colId": "history",
+    "containerId": "",
+    "name": "Nguyen Lieu",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/NguyenLieu",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-06-01T03:01:58.788Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE2ODU1NjQxNTJ9.7Q66brBBVCYXBr_NaRwyqjEjTQIhYNL9RtcSSb_lDd8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "448cc572-0a4f-4dec-bf4c-a12d7ec2f7c8",
+    "colId": "history",
+    "containerId": "",
+    "name": "Nhat ky canh tac Copy Copy",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/LoaiCayTrong",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-06-01T01:50:16.454Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userName\": \"nguyenvana\",\n  \"password\": \"\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE2ODU1NjQxNTJ9.7Q66brBBVCYXBr_NaRwyqjEjTQIhYNL9RtcSSb_lDd8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "46878013-781d-4153-aae2-bf03adfcbb79",
+    "colId": "history",
+    "containerId": "",
+    "name": "Nhat ky canh tac Copy",
+    "url": "https://app.kennatech.vn/mobileapp/api/odata/Dat_CoSo",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-29T09:08:22.302Z",
+    "modified": "2023-06-07T02:14:33.816Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "*/*",
+        "isDisabled": true
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [
+      {
+        "name": "$filter",
+        "value": "contains(tolower(TieuDe), tolower('a'))",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "body": {
+      "type": "json",
+      "raw": "{\n\n  \"NoiDung\": \"fsadf\",\n  \"NguoiTao\": {\n    \"Oid\": \"25b14b84-a59d-4410-9c54-4c2d3ccbca19\"\n  },\n  \"Ticket\": {\n    \"Oid\": \"04f497d7-459d-4763-8f38-3e2fc32d4ebe\"\n  }\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjI1YjE0Yjg0LWE1OWQtNDQxMC05YzU0LTRjMmQzY2NiY2ExOSIsIlhhZlNlY3VyaXR5QXV0aFBhc3NlZCI6IlhhZlNlY3VyaXR5QXV0aFBhc3NlZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJuZ3V5ZW52YW5hIiwiWGFmU2VjdXJpdHkiOiJYYWZTZWN1cml0eSIsIlhhZkxvZ29uUGFyYW1zIjoicTFZcUxVNHQ4a3ZNVFZXeVVzcExMNjFNelN0THpFdFUwbEVxU0N3dUxzOHZTZ0dLSzlVQ0FBPT0iLCJleHAiOjE4NDM1MzYwNTB9.qjgqiZJ3UsR0foWqzzNhifd-b1jrhnSlSBDrnBX6eQk"
+    },
+    "tests": []
+  }
+]
