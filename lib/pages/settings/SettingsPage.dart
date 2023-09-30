@@ -42,7 +42,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   child: Row(
                     children: [
@@ -69,7 +69,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             ),),
                             const SizedBox(height: 10,),
                             Text(user.DiaChiEmail ?? "Not update".tr(), style: TextStyle(
-                              color: Colors.grey[700],
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                               fontWeight: FontWeight.w500,
                             ),),
                             const SizedBox(height: 10,),
@@ -87,14 +87,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(6)
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text("Information", style: TextStyle(
-                          color: Colors.grey[900],
+                        child: const Text("Information", style: TextStyle(
                           fontWeight: FontWeight.w600
                         ),).tr(),
                       ),
@@ -114,15 +113,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.05),
-                          spreadRadius: 1,
-                          blurRadius: 5,
-                          offset: const Offset(0, 1), // changes position of shadow
-                        ),
-                      ]
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                     child: Column(
                       children: [
@@ -157,7 +148,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(6)
                   ),
                   child: Row(
@@ -184,15 +175,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.05),
-                          spreadRadius: 1,
-                          blurRadius: 5,
-                          offset: const Offset(0, 1), // changes position of shadow
-                        ),
-                      ]
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                     child: Column(
                       children: [
@@ -241,9 +224,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   child: ElevatedButton(
                     onPressed: () => ref.read(authControllerProvider.notifier).logout(), 
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
+                      backgroundColor: Theme.of(context).colorScheme.error,
                     ),
-                    child: const Text("Logout").tr()
+                    child: Text("Logout", style: TextStyle(color: Theme.of(context).colorScheme.onError),).tr()
                   )
                 ),
 
@@ -271,7 +254,7 @@ class InfoWidget extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: border ? Border(
-          bottom:  BorderSide(color: Colors.grey[300]!)
+          bottom:  BorderSide(color: Theme.of(context).colorScheme.background)
         ) : null
       ),
       child: Row(
@@ -297,7 +280,7 @@ class InfoWidget extends ConsumerWidget {
               ),),
               const SizedBox(height: 3,),
               Text(value ?? "Not update".tr(), style: TextStyle(
-                color: Colors.grey[700],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w600
               ),),
             ],
@@ -332,7 +315,7 @@ class InfoWidget2 extends ConsumerWidget {
               // padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                 border: border ? Border(
-                  bottom: BorderSide(color: Colors.grey[300]!)
+                  bottom: BorderSide(color: Theme.of(context).colorScheme.background)
                 ) : null
               ),
               child: Row(
@@ -351,11 +334,11 @@ class InfoWidget2 extends ConsumerWidget {
                   ],
                   if (value != null) ...[
                     Text(value!, style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w600
                     ),),
                     const SizedBox(width: 10,),
-                    const Icon(CupertinoIcons.right_chevron, color: Colors.grey, size: 18,),
+                    Icon(CupertinoIcons.right_chevron, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 18,),
                   ],
                 ],
               ),
@@ -375,7 +358,7 @@ class LanguageModal extends ConsumerWidget {
     List<Locale> langs = context.supportedLocales;
     String lang = context.locale.toString();
     return Container(
-      color: Colors.grey[300],
+      color: Theme.of(context).colorScheme.background,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       child: IntrinsicHeight(
@@ -389,7 +372,7 @@ class LanguageModal extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(8)
               ),
               child: Column(
@@ -406,7 +389,7 @@ class LanguageModal extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         decoration: BoxDecoration(
                           border: i < langs.length - 1 ? Border(
-                            bottom: BorderSide(color: Colors.grey[300]!)
+                            bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5))
                           ) : null
                         ),
                         child: Row(

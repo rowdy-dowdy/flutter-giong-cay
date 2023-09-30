@@ -56,14 +56,13 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
               ),
               const SizedBox(height: 20,),
               Text("Basic information", style: TextStyle(
-                color: Colors.grey[700],
                 fontWeight: FontWeight.w600
               ),).tr(),
               const SizedBox(height: 5,),
               Container(
-                // padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(9),
                   boxShadow: [
                     BoxShadow(
@@ -77,7 +76,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                 child: Column(children: [
                   Container(
                     decoration: BoxDecoration(border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!)
+                      bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)
                     )),
                     child: TextFormField(
                       // controller: nameController,
@@ -93,7 +92,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                   ),
                   Container(
                     decoration: BoxDecoration(border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!)
+                      bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)
                     )),
                     child: SizedBox(
                       width: double.infinity,
@@ -119,7 +118,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                   ),
                   Container(
                     decoration: BoxDecoration(border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!)
+                      bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)
                     )),
                     child: TextField(
                       // controller: dateController,
@@ -135,7 +134,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                   ),
                   Container(
                     decoration: BoxDecoration(border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!)
+                      bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)
                     )),
                     child: TextField(
                       // controller: addressController,
@@ -163,14 +162,13 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
         
               const SizedBox(height: 20,),
               Text("Advanced", style: TextStyle(
-                color: Colors.grey[700],
                 fontWeight: FontWeight.w600
               ),).tr(),
               const SizedBox(height: 5,),
               Container(
-                // padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(9),
                   boxShadow: [
                     BoxShadow(
@@ -184,7 +182,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                 child: Column(children: [
                   Container(
                     decoration: BoxDecoration(border: Border(
-                      bottom: BorderSide(color: Colors.grey[300]!)
+                      bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)
                     )),
                     child: TextField(
                       // controller: emailController,

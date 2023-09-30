@@ -1,0 +1,18 @@
+{
+	"Print Theme contxt": {
+		"scope": "dart",
+		"prefix": "th",
+		"body": [
+			"Theme.of(context).$1",
+		],
+		"description": "Theme.of(context)"
+	},
+	"Print colorScheme": {
+		"scope": "dart",
+		"prefix": "co",
+		"body": [
+			"Theme.of(context).colorScheme.$1",
+		],
+		"description": "Theme.of(context)"
+	}
+}

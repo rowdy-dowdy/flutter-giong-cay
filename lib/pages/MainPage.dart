@@ -36,25 +36,29 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     menu = [
       {
-        "icon": CupertinoIcons.home,
+        "icon": CupertinoIcons.house,
+        "iconFill": CupertinoIcons.house_fill,
         "label": "Home",
         "path": "/",
         "page": const HomePage(),
       },
       {
-        "icon": CupertinoIcons.person_2,
+        "icon": CupertinoIcons.clock,
+        "iconFill": CupertinoIcons.clock_fill,
         "label": "Expert",
         "path": "/expert",
         "page": const HomePage(),
       },
       {
-        "icon": CupertinoIcons.list_bullet_below_rectangle,
+        "icon": Icons.eco_outlined,
+        "iconFill": Icons.eco_rounded,
         "label": "Action",
         "path": "/action",
         "page": const HomePage(),
       },
       {
         "icon": CupertinoIcons.settings,
+        "iconFill": CupertinoIcons.settings,
         "label": "Personal",
         "path": "/settings",
         "page": const SettingsPage(),
@@ -79,14 +83,40 @@ class _MainPageState extends ConsumerState<MainPage> {
           e['page'] as Widget
         ).toList(),
       ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Home'),
+              
+            ),
+            ListTile(
+              title: const Text('Business'),
+             
+            ),
+            ListTile(
+              title: const Text('School'),
+            
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: Container(
-        // decoration: BoxDecoration(
-        //   border: Border(top: BorderSide(color: Colors.grey[300]!))
-        // ),
         child: NavigationBar(
           destinations: menu.mapIndexed((i, e) => 
             NavigationDestination(
-              icon: Icon(e['icon']), 
+              icon: Icon(currentPageIndex == i ? e['iconFill'] : e['icon']), 
               label: tr(e['label'])
             )
           ).toList(),
@@ -95,11 +125,9 @@ class _MainPageState extends ConsumerState<MainPage> {
             setState(() {
               currentPageIndex = index;
             });
-            // context.go("${menu[index]['path']}");
           },
-          animationDuration: const Duration(milliseconds: 100),
+          // animationDuration: const Duration(milliseconds: 100),
           height: 70,
-          // backgroundColor: Colors.white,
         ),
       ),
     );

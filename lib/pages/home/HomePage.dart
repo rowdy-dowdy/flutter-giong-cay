@@ -30,22 +30,29 @@ class _NotificationsPageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         AppBar(
           title: const Text('pages.Home').tr(),
-          leading: const Icon(Icons.menu_rounded),
+          // leading: const Icon(Icons.menu_rounded),
+          backgroundColor: Theme.of(context).colorScheme.background,
           actions: [
-            Container(
-              width: 30,
-              height: 30,
-              margin: const EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(50),
+            InkWell(
+              onTap: (){},
+              child: Container(
+                width: 56, height: 56,
+                child: Center(
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Icon(Icons.person, size: 20, color: Theme.of(context).colorScheme.background,)
+                  ),
+                ),
               ),
-              child: Icon(Icons.person, size: 20, color: Theme.of(context).colorScheme.background,)
             )
           ],
         ),
@@ -60,17 +67,78 @@ class _NotificationsPageState extends ConsumerState<HomePage> {
                   // padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                    child: ContainerCustom(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text("data", style: TextStyle(fontSize: 20),),
-                          Text("data", style: TextStyle(color: Theme.of(context).colorScheme.outline),)
-                          // Container(height: 200, color: Theme.of(context).extension<CustomColors>()?.sourceCustomcolor1,),
-                          // Container(height: 200, color: Colors.red,),
-                          // Container(height: 200, color: Colors.green,)
-                        ],
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ContainerCustom(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text("home.Hello", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),).tr(),
+                              const SizedBox(height: 5,),
+                              Text("home.Your farming diary", style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),).tr(),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 104,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 5,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                width: 240,
+                                margin: EdgeInsets.only(
+                                  left: index == 0 ? Theme.of(context).custom.padding : 0,
+                                  right: Theme.of(context).custom.padding
+                                ),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).colorScheme.background,
+                                        borderRadius: BorderRadius.circular(20)
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16,),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("My products", style: TextStyle(fontWeight: FontWeight.w600),
+                                            maxLines: 2, overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 5,),
+                                          Text("4 Crops", style: TextStyle(
+                                            fontSize: 12,
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant
+                                          ),)
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      
+                        const SizedBox(height: 20,),
+                        ContainerCustom(
+                          // child: ,
+                        )
+                      ],
                     ),
                   ),
                 ),

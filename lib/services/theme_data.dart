@@ -1,29 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
 
-  primary: Color(0xFF6750a4),
+  primary: Color(0xFF386a20),
   onPrimary: Color(0xFFffffff),
-  primaryContainer: Color(0xFFe9ddff),
-  onPrimaryContainer: Color(0xFF22005d),
+  primaryContainer: Color(0xFFb7f397),
+  onPrimaryContainer: Color(0xFF042100),
 
-  secondary: Color(0xFF6750a4),
+  secondary: Color(0xFF55624c),
   onSecondary: Color(0xFFffffff),
-  secondaryContainer: Color(0xFFe9ddff),
-  onSecondaryContainer: Color(0xFF22005d),
+  secondaryContainer: Color(0xFFd9e7cb),
+  onSecondaryContainer: Color(0xFF131f0d),
 
-  background: Color(0xFFfffbff),
-  onBackground: Color(0xFF1c1b1e),
-  surface: Color(0xFFfffbff),
-  onSurface: Color(0xFF1c1b1e),
+  background: Color(0xFFedefe5),
+  surface: Color.fromRGBO(252, 252, 239, 1),
+  // surface: Color(0xFFf8faf0),
+  onBackground: Color(0xFF1a1c18),
+  onSurface: Color(0xFF1a1c18),
+  onSurfaceVariant: Color(0xFF43483e),
   
-  outline: Color(0xFF7a757f),
-  surfaceVariant: Color(0xFFe7e0eb),
-  onSurfaceVariant: Color(0xFF49454e),
+  outline: Color(0xFF74796d),
+  outlineVariant: Color(0xFFc3c8bb),
 
   error: Color(0xFFba1a1a),
   onError: Color(0xFFffffff),
@@ -32,24 +32,24 @@ const lightColorScheme = ColorScheme(
 const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
 
-  primary: Color(0xFFcfbcff),
-  onPrimary: Color(0xFF381e72),
-  primaryContainer: Color(0xFF4f378a),
-  onPrimaryContainer: Color(0xFFe9ddff),
+  primary: Color(0xFF9dd67d),
+  onPrimary: Color(0xFF113800),
+  primaryContainer: Color(0xFF205106),
+  onPrimaryContainer: Color(0xFFb8f397),
 
-  secondary: Color(0xFFcbc2db),
-  onSecondary: Color(0xFF332d41),
-  secondaryContainer: Color(0xFF4a4458),
-  onSecondaryContainer: Color(0xFFe8def8),
+  secondary: Color(0xFFbdcbb0),
+  onSecondary: Color(0xFF283420),
+  secondaryContainer: Color(0xFF3e4a35),
+  onSecondaryContainer: Color(0xFFd9e7cb),
 
-  background: Color(0xFF1c1b1e),
-  onBackground: Color(0xFFe6e1e6),
-  surface: Color(0xFF1c1b1e),
-  onSurface: Color(0xFFe6e1e6),
-  
+  background: Color(0xFF1e211a),
+  surface: Color(0xFF11140e),
+  onBackground: Color(0xFFe3e3dc),
+  onSurface: Color(0xFFe3e3dc),
+  onSurfaceVariant: Color(0xFFc3c8bb),
+
   outline: Color(0xFF948f99),
-  surfaceVariant: Color(0xFF49454e),
-  onSurfaceVariant: Color(0xFFcac4cf),
+  outlineVariant: Color(0xFF43483e),
 
   error: Color(0xFFffb4ab),
   onError: Color(0xFF690005),
@@ -85,19 +85,19 @@ ThemeData customTheme ({ThemeMode? themeMode}) {
       //   size: 20,
       // ),
     ),
-    // elevatedButtonTheme: ElevatedButtonThemeData(
-    //   style: ElevatedButton.styleFrom(
-    //     // backgroundColor: primary2,
-    //     minimumSize: const Size(double.infinity, 48),
-    //     elevation: 0.0,
-    //     shadowColor: Colors.transparent,
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.circular(5.0),
-    //     ),
-    //     backgroundColor: primary,
-    //     foregroundColor : Colors.white,
-    //   ),
-    // ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        // backgroundColor: primary2,
+        minimumSize: const Size(double.infinity, 48),
+        elevation: 0.0,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        backgroundColor: colorScheme.primary,
+        foregroundColor : colorScheme.onPrimary,
+      ),
+    ),
     // // textButtonTheme: TextButtonThemeData(
     // //   style: TextButton.styleFrom(
     // //     // foregroundColor: primary
@@ -148,21 +148,23 @@ ThemeData customTheme ({ThemeMode? themeMode}) {
     // //   labelColor: primary,
     // //   unselectedLabelColor: Colors.black,
     // // ),
-    // navigationBarTheme: const NavigationBarThemeData(
-    //   indicatorColor: primary,
-    //   // labelTextStyle: MaterialStateProperty.all(
-    //   //   const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)
-    //   // ),
-    //   // elevation: 0,
-    // ),
+    navigationBarTheme: const NavigationBarThemeData(
+      // indicatorColor: primary,
+      // labelTextStyle: MaterialStateProperty.all(
+      //   const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)
+      // ),
+      elevation: 0,
+    ),
   );
 }
 
 final customLightTheme = CustomThemeData(
-  padding: 16,
+  surfaceContainerLowest: Color(0xFFFCFCEF)
 );
 
-final customDarkTheme = CustomThemeData();
+final customDarkTheme = CustomThemeData(
+  surfaceContainerLowest: Color(0xFF11140e)
+);
 
 extension CustomTheme on ThemeData {
   CustomThemeData get custom => 
@@ -171,8 +173,10 @@ extension CustomTheme on ThemeData {
 
 class CustomThemeData {
   final double padding;
+  final Color surfaceContainerLowest;
 
   CustomThemeData({
     this.padding = 16,
+    required this.surfaceContainerLowest
   });
 }

@@ -6,6 +6,10 @@
   "pages": {
     "Home": "Trang chủ"
   },
+  "home": {
+    "Hello": "Xin chào",
+    "Your farming diary": "Nhật ký canh tác của bạn"
+  },
   "Logout": "Đăng xuất",
   "Not update": "Chưa cập nhập",
   "Language": "Ngôn ngữ",

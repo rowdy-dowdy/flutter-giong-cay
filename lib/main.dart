@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/config/app.dart';
+import 'package:sample/firebase_options.dart';
+import 'package:sample/services/firebase_cloud_messaging.dart';
 import 'package:sample/services/theme_data.dart';
 import 'package:sample/controllers/router_controller.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,17 +33,6 @@ void main() async {
       child: const MyApp()
     ),
   ));
-
-  // runApp(ProviderScope(child: EasyLocalization(
-  //   supportedLocales: const [Locale('vi'), Locale('en')],
-  //   path: 'assets/translations', // <-- change the path of the translation files 
-  //   fallbackLocale: const Locale('vi'),
-  //   // startLocale: const Locale('vi'),
-  //   child: const MyApp()
-  // )));
-
-  // initializeDateFormatting()
-  //   .then((value) => runApp(const ProviderScope(child: MyApp())));
 }
 
 class MyApp extends ConsumerWidget {
@@ -60,7 +52,7 @@ class MyApp extends ConsumerWidget {
       locale: context.locale,
       theme: customTheme(),
       darkTheme: customTheme(themeMode: ThemeMode.dark),
-      themeMode: ThemeMode.light,
+      // themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
     );
