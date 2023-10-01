@@ -25,6 +25,7 @@ class Timeline extends StatelessWidget {
   const Timeline({
     Key? key,
     required this.children,
+    this.leftChildren,
     this.indicators,
     this.isLeftAligned = true,
     this.itemGap = 12.0,
@@ -39,6 +40,7 @@ class Timeline extends StatelessWidget {
     this.indicatorSize = 30.0,
     this.lineGap = 4.0,
     this.indicatorColor = Colors.blue,
+    this.indicatorColors,
     this.indicatorStyle = PaintingStyle.fill,
     this.strokeCap = StrokeCap.butt,
     this.strokeWidth = 2.0,
@@ -53,6 +55,7 @@ class Timeline extends StatelessWidget {
   final double itemGap;
   final double gutterSpacing;
   final List<Widget>? indicators;
+  final List<Widget>? leftChildren;
   final bool isLeftAligned;
   final EdgeInsets padding;
   final ScrollController? controller;
@@ -66,6 +69,7 @@ class Timeline extends StatelessWidget {
   final double lineGap;
   final double indicatorSize;
   final Color indicatorColor;
+  final List<Color>? indicatorColors;
   final PaintingStyle indicatorStyle;
   final StrokeCap strokeCap;
   final double strokeWidth;
@@ -95,11 +99,15 @@ class Timeline extends StatelessWidget {
         final isLast = index == itemCount - 1;
 
         final timelineTile = <Widget>[
+          if (leftChildren?[index] != null) ...[
+            leftChildren![index],
+            SizedBox(width: gutterSpacing),
+          ],
           CustomPaint(
             foregroundPainter: _TimelinePainter(
               hideDefaultIndicator: indicator != null,
               lineColor: lineColor,
-              indicatorColor: indicatorColor,
+              indicatorColor: indicatorColors?[index] ?? indicatorColor,
               indicatorSize: indicatorSize,
               indicatorStyle: indicatorStyle,
               isFirst: isFirst,
@@ -124,7 +132,7 @@ class Timeline extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children:
-                isLeftAligned ? timelineTile : timelineTile.reversed.toList(),
+              isLeftAligned ? timelineTile : timelineTile.reversed.toList(),
           ),
         );
       },

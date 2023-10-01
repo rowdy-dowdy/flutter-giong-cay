@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const double padding = 16;
+
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
 
@@ -16,7 +18,7 @@ const lightColorScheme = ColorScheme(
   onSecondaryContainer: Color(0xFF131f0d),
 
   background: Color(0xFFedefe5),
-  surface: Color.fromRGBO(252, 252, 239, 1),
+  surface: Color.fromRGBO(253, 253, 253, 1),
   // surface: Color(0xFFf8faf0),
   onBackground: Color(0xFF1a1c18),
   onSurface: Color(0xFF1a1c18),
@@ -88,7 +90,7 @@ ThemeData customTheme ({ThemeMode? themeMode}) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         // backgroundColor: primary2,
-        minimumSize: const Size(double.infinity, 48),
+        minimumSize: const Size(18, 48),
         elevation: 0.0,
         shadowColor: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -172,11 +174,9 @@ extension CustomTheme on ThemeData {
 }
 
 class CustomThemeData {
-  final double padding;
   final Color surfaceContainerLowest;
 
   CustomThemeData({
-    this.padding = 16,
     required this.surfaceContainerLowest
   });
 }

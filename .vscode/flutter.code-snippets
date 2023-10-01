@@ -9,7 +9,7 @@
 	},
 	"Print colorScheme": {
 		"scope": "dart",
-		"prefix": "co",
+		"prefix": "cs",
 		"body": [
 			"Theme.of(context).colorScheme.$1",
 		],

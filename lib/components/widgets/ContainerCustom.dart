@@ -8,8 +8,8 @@ class ContainerCustom extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: Theme.of(context).custom.padding),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: padding),
       child: child,
     );
   }
