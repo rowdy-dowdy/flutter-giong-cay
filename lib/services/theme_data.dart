@@ -17,8 +17,8 @@ const lightColorScheme = ColorScheme(
   secondaryContainer: Color(0xFFd9e7cb),
   onSecondaryContainer: Color(0xFF131f0d),
 
-  background: Color(0xFFedefe5),
-  surface: Color.fromRGBO(253, 253, 253, 1),
+  background: Color(0xFFf0f2f5),
+  surface: Color.fromRGBO(255, 255, 255, 1),
   // surface: Color(0xFFf8faf0),
   onBackground: Color(0xFF1a1c18),
   onSurface: Color(0xFF1a1c18),
