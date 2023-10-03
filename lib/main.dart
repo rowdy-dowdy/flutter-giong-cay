@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/config/app.dart';
 import 'package:sample/firebase_options.dart';
+import 'package:sample/pages/LoadingPage.dart';
 import 'package:sample/services/firebase_cloud_messaging.dart';
+import 'package:sample/services/shared_prefs.dart';
 import 'package:sample/services/theme_data.dart';
 import 'package:sample/controllers/router_controller.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +22,17 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
-  final container = ProviderContainer();
-  // 2. Use it to read the provider 
+  final prefs = await SharedPreferences.getInstance();
+
+  final theme = await loadThemeMode(prefs);
+
+  final container = ProviderContainer(
+    overrides: [
+      sharedPrefsProvider.overrideWithValue(prefs)
+    ]
+  );
   // container.read(firebaseCloudMessagingServiceProvider);
+  container.read(themeDataProvider.notifier).updateThemeModel(theme);
 
   runApp(UncontrolledProviderScope(
     container: container,
@@ -41,7 +52,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-
+    final themeData = ref.watch(themeDataProvider);
+    
     return MaterialApp.router(
       title: APP_NAME,
       scrollBehavior: const CupertinoScrollBehavior().copyWith(
@@ -50,9 +62,9 @@ class MyApp extends ConsumerWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      theme: customTheme(),
-      darkTheme: customTheme(themeMode: ThemeMode.dark),
-      // themeMode: ThemeMode.light,
+      theme: themeData.lightTheme,
+      darkTheme: themeData.darkTheme,
+      themeMode: themeData.themeMode,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
     );

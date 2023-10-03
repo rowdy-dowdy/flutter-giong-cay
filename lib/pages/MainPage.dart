@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
+import 'package:sample/components/sample/AutomaticKeepAliveClientMixin.dart';
 import 'package:sample/pages/calendar/CalendarPage.dart';
 import 'package:sample/pages/home/HomePage.dart';
 import 'package:sample/pages/planting/PlantingPage.dart';
@@ -16,7 +17,8 @@ class MainPage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _MainPageState();
 }
 
-class _MainPageState extends ConsumerState<MainPage> {
+class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMixin {
+  late TabController _tabController;
   int currentPageIndex = 0;
 
   late List<Map<String, dynamic>> menu;
@@ -27,9 +29,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       index = 0;
     }
 
-    setState(() {
-      currentPageIndex = index;
-    });
+    _tabController.animateTo(index);
   }
 
   @override
@@ -67,7 +67,21 @@ class _MainPageState extends ConsumerState<MainPage> {
       }
     ];
 
-    changePage(null);
+    _tabController = TabController(length: menu.length, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        currentPageIndex = _tabController.index;
+      });
+    });
+
+    // changePage(null);
+  }
+
+  Widget buildPage(int index) {
+    return KeepAliveClient(
+      // key: PageStorageKey(menu[index]['path']),
+      child: menu[index]['page'] as Widget
+    );
   }
 
   @override
@@ -77,20 +91,26 @@ class _MainPageState extends ConsumerState<MainPage> {
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: currentPageIndex,
-        children: menu.map((e) => 
-          e['page'] as Widget
-        ).toList(),
+      body: TabBarView(
+        controller: _tabController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: List.generate(menu.length, (index) => 
+          KeepAliveClient(
+            key: PageStorageKey(menu[index]['path']),
+            child: menu[index]['page'] as Widget
+          )
+        )
       ),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
@@ -129,9 +149,7 @@ class _MainPageState extends ConsumerState<MainPage> {
           ).toList(),
           selectedIndex: currentPageIndex,
           onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
+            _tabController.animateTo(index);
           },
           // animationDuration: const Duration(milliseconds: 100),
           height: 70,

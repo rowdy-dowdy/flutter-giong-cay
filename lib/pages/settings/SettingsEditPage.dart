@@ -55,7 +55,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
                 ),
               ),
               const SizedBox(height: 20,),
-              Text("Basic information", style: TextStyle(
+              const Text("Basic information", style: TextStyle(
                 fontWeight: FontWeight.w600
               ),).tr(),
               const SizedBox(height: 5,),
@@ -161,7 +161,7 @@ class _SettingsEditPageState extends ConsumerState<SettingsEditPage> {
               ),
         
               const SizedBox(height: 20,),
-              Text("Advanced", style: TextStyle(
+              const Text("Advanced", style: TextStyle(
                 fontWeight: FontWeight.w600
               ),).tr(),
               const SizedBox(height: 5,),

@@ -92,7 +92,7 @@ class AuthRepository {
 
   Future<void> logout() async {
     try {
-      final prefs = await ref.read(sharedPrefsProvider.future);
+      final prefs = ref.watch(sharedPrefsProvider);
       await prefs.remove('token');
       await prefs.remove('id');
 

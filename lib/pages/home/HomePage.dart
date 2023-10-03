@@ -238,7 +238,7 @@ class _NotificationsPageState extends ConsumerState<HomePage> {
                                     )),
                                   ],
                                 ),
-                              ).animate(delay: (500 * index).ms)
+                              ).animate(delay: (200 * index).ms)
                               .fadeIn(duration: 900.ms)
                               .shimmer(blendMode: BlendMode.srcOver, color: Colors.white12)
                               .move(begin: const Offset(0, 16), curve: Curves.easeOutQuad);

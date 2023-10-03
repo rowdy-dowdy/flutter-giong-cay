@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:zoom_widget/zoom_widget.dart';
+// import 'package:zoom_widget/zoom_widget.dart';
 
 class PlantingPage extends ConsumerStatefulWidget {
   const PlantingPage({super.key});
@@ -11,27 +11,18 @@ class PlantingPage extends ConsumerStatefulWidget {
 }
 
 class _PlantingPageState extends ConsumerState<PlantingPage> {
-  // final _controller = TransformationController();
+  final _controller = TransformationController();
+
+  static const double widgetPadding = 12;
+  static const double childWidth = 50;
+
+  static const int row = 4;
+  static const int col = 4;
+
+  var twoDList = List<List>.generate(row, (i) => List<dynamic>.generate(col, (index) => null, growable: false), growable: false);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    double deviceWidth = size.width;
-    double deviceHeight = size.height - kToolbarHeight;
-    // double scale = _controller.value.getMaxScaleOnAxis();
-    double imageWidth = 1000;
-    double imageHeight = 10000;
-    // //Calculate the scale factor to fit the image to the screen (based on width)
-    double scaleFactor = (deviceWidth / imageWidth);
-
-    // _controller.value = Matrix4.identity() * scaleFactor;
-
-    //             //optional: center the image on the screen
-    //             //Center the canvas on the screen
-    // _controller.value.setTranslationRaw(0,100,0);
-
-
     return Column(
       children: [
         AppBar(
@@ -39,42 +30,60 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
           backgroundColor: Theme.of(context).colorScheme.background,
         ),
         Expanded(
-          child: Container(
-            width: size.width,
-            height: size.height - kToolbarHeight,
-            child: Zoom(
-              // initTotalZoomOut: true,
-              backgroundColor: Colors.transparent,
-              initScale: scaleFactor,
-              maxScale: scaleFactor * 10,
-              // minScale: scaleFactor,
-              // maxScale: scaleFactor * 10,
-              // constrained: false,
-              // boundaryMargin: EdgeInsets.symmetric(vertical: 500),
-              // // clipBehavior: Clip.none,
-              // transformationController: _controller,
-              child: Container(
-                // margin: const EdgeInsets.all(10),
-                width: imageWidth,
-                height: imageHeight,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("🥬"),
-                        Container(width: imageWidth / 2, height: imageHeight / 2, color: Colors.blue,),
-                      ],
+          child: LayoutBuilder(
+            builder: (context, constrained) {
+              double deviceWidth = constrained.maxWidth;
+              double deviceHeight = constrained.maxHeight;
+
+              double widgetWidth = childWidth * col + widgetPadding * 2;
+              double widgetHeight = childWidth * row + widgetPadding * 2;
+
+              double scaleFactor = (deviceWidth / widgetWidth);
+
+              _controller.value = Matrix4.identity() * scaleFactor;
+
+              print(widgetHeight * scaleFactor);
+              double maxHeight = widgetWidth / deviceWidth * deviceHeight;
+              double boundaryMargin = 0;
+              if (widgetHeight < maxHeight) {
+                boundaryMargin = deviceHeight + (widgetHeight - widgetWidth).abs();
+              }
+              print(maxHeight);
+              print(boundaryMargin);
+
+              // _controller.value.setTranslationRaw(0,100,0);
+              
+              return SizedBox(
+                width: deviceWidth,
+                height: deviceHeight,
+                child: InteractiveViewer(
+                  minScale: scaleFactor,
+                  maxScale: scaleFactor * 10,
+                  constrained: false,
+                  boundaryMargin: EdgeInsets.symmetric(vertical: 0),
+                  transformationController: _controller,
+                  child: Container(
+                    // margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(widgetPadding),
+                    width: widgetWidth,
+                    height: widgetHeight,
+                    child: Column(
+                      children: twoDList.map((row) => 
+                        Row(
+                          children: row.map((e) => 
+                            Container(
+                              width: childWidth,
+                              height: childWidth,
+                              color: Colors.red,
+                            )
+                          ).toList(),
+                        )
+                      ).toList(),
                     ),
-                    Row(
-                      children: [
-                        Container(width: imageWidth / 2, height: imageHeight / 2, color: Colors.blue,),
-                        Container(width: imageWidth / 2, height: imageHeight / 2, color: Colors.red,),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            }
           )
         )
       ],

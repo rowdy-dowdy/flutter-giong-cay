@@ -1,6 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/models/theme_model.dart';
+import 'package:sample/services/shared_prefs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const double padding = 16;
 
@@ -180,3 +186,47 @@ class CustomThemeData {
     required this.surfaceContainerLowest
   });
 }
+
+Future<ThemeModel> loadThemeMode (SharedPreferences prefs) async {
+  String? themeModeString = prefs.getString('themeMode');
+
+  ThemeMode themeMode = themeModeString == "light" ? ThemeMode.light 
+    : themeModeString == "dark" ? ThemeMode.dark : ThemeMode.system;
+
+  return ThemeModel(
+    lightTheme: customTheme(), 
+    darkTheme: customTheme(themeMode: ThemeMode.dark), 
+    themeMode: themeMode
+  );
+}
+
+String themeModeToString (ThemeMode themeMode) {
+  switch (themeMode) {
+    case ThemeMode.system:
+      return "system";
+    case ThemeMode.light:
+      return "light";
+    case ThemeMode.dark:
+      return "dark";
+  }
+}
+
+// final themeDataProvider = Provider<ThemeModel>((ref) => throw Exception('Provider was not initialized'));
+
+class ThemeDataNotifier extends Notifier<ThemeModel> {
+  @override
+  ThemeModel build() {
+    throw Exception('Provider was not initialized');
+  }
+
+  void updateThemeModel (ThemeModel theme) {
+    state = theme;
+  }
+
+  void toggleTheme (ThemeMode themeMode) {
+    state = ThemeModel(lightTheme: state.lightTheme, darkTheme: state.darkTheme, themeMode: themeMode);
+    ref.watch(sharedPrefsProvider).setString('themeMode', themeModeToString(themeMode));
+  }
+}
+
+final themeDataProvider = NotifierProvider<ThemeDataNotifier, ThemeModel>(ThemeDataNotifier.new);

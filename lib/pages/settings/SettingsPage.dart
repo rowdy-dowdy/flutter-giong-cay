@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample/components/sample/ExpandedSection.dart';
 import 'package:sample/controllers/auth_controller.dart';
+import 'package:sample/main.dart';
+import 'package:sample/services/theme_data.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -73,9 +75,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               fontWeight: FontWeight.w500,
                             ),),
                             const SizedBox(height: 10,),
-                            const Text("Farm management", style: TextStyle(
+                            const Text("Nâng cấp tài khoản pro", style: TextStyle(
                               fontWeight: FontWeight.w500,
-                            ),).tr()
+                            ),)
                           ],
                         ),
                       )
@@ -211,6 +213,29 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             ), 
                             builder: (context) => const LanguageModal()
                           ),
+                        ),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final themeData = ref.watch(themeDataProvider);
+
+                            return InfoWidget2(
+                              color: Colors.purple, 
+                              icon: Icons.construction_sharp, 
+                              label: "Theme Mode".tr(),
+                              value: tr(themeModeToString(themeData.themeMode).toCapitalize()),
+                              border: false,
+                              onTap: () => showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20)
+                                  )
+                                ), 
+                                builder: (context) => const ThemeModal()
+                              ),
+                            );
+                          }
                         ),
                       ],
                     )
@@ -402,6 +427,78 @@ class LanguageModal extends ConsumerWidget {
                             const SizedBox(width: 10,),
                             Icon(CupertinoIcons.check_mark, 
                               color: lang == langs[i].toString() ? Colors.blue : Colors.transparent, 
+                              size: 18,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ]
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ThemeModal extends ConsumerWidget {
+  const ThemeModal({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<ThemeMode> data = [ThemeMode.light, ThemeMode.dark, ThemeMode.system];
+    
+    final themeData = ref.watch(themeDataProvider);
+
+    return Container(
+      color: Theme.of(context).colorScheme.background,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      child: IntrinsicHeight(
+        child: Column(
+          children: [
+            const Text("Choose Theme Mode", style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600
+            ),).tr(),
+            const SizedBox(height: 10,),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(8)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var i = 0; i < data.length; i++) ...[
+                    InkWell(
+                      onTap: () {
+                        // Navigator.pop(context);
+                        // context.setLocale(Locale(data[i].toString()));
+                        ref.watch(themeDataProvider.notifier).toggleTheme(data[i]);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          border: i < data.length - 1 ? Border(
+                            bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.5))
+                          ) : null
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(tr(themeModeToString(data[i]).toCapitalize()), style: const TextStyle(
+                                fontWeight: FontWeight.w500
+                              ),),
+                            ),
+                            const SizedBox(width: 10,),
+                            Icon(CupertinoIcons.check_mark, 
+                              color: themeData.themeMode == data[i] ? Colors.blue : Colors.transparent, 
                               size: 18,
                             )
                           ],
