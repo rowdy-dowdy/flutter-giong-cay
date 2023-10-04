@@ -31,6 +31,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         AppBar(
           title: const Text("Account information").tr(),
           centerTitle: false,
+          leading: IconButton(
+            onPressed: () => context.go('/'),
+            icon: Icon(Icons.home),
+          ),
           actions: [
             IconButton(
               onPressed: () => context.push('/settings/edit'), 

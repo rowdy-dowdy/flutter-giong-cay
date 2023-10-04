@@ -16,11 +16,6 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
   static const double widgetPadding = 12;
   static const double childWidth = 50;
 
-  static const int row = 4;
-  static const int col = 4;
-
-  var twoDList = List<List>.generate(row, (i) => List<dynamic>.generate(col, (index) => null, growable: false), growable: false);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,6 +27,9 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
         Expanded(
           child: LayoutBuilder(
             builder: (context, constrained) {
+              int row = 20;
+              int col = 10;
+              var twoDList = List<List>.generate(row, (i) => List<dynamic>.generate(col, (index) => null, growable: false), growable: false);
               double deviceWidth = constrained.maxWidth;
               double deviceHeight = constrained.maxHeight;
 
@@ -42,14 +40,19 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
 
               _controller.value = Matrix4.identity() * scaleFactor;
 
-              print(widgetHeight * scaleFactor);
               double maxHeight = widgetWidth / deviceWidth * deviceHeight;
               double boundaryMargin = 0;
               if (widgetHeight < maxHeight) {
                 boundaryMargin = deviceHeight + (widgetHeight - widgetWidth).abs();
               }
-              print(maxHeight);
+              print({widgetWidth, widgetHeight, maxHeight});
               print(boundaryMargin);
+
+              double maxSize = maxHeight;
+              if (widgetHeight > maxSize) {
+                maxSize = widgetHeight;
+              }
+              print(maxSize);
 
               // _controller.value.setTranslationRaw(0,100,0);
               
@@ -60,13 +63,13 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
                   minScale: scaleFactor,
                   maxScale: scaleFactor * 10,
                   constrained: false,
-                  boundaryMargin: EdgeInsets.symmetric(vertical: 0),
+                  // boundaryMargin: EdgeInsets.symmetric(vertical: boundaryMargin),
                   transformationController: _controller,
                   child: Container(
-                    // margin: const EdgeInsets.all(10),
+                    color: Colors.green,
                     padding: const EdgeInsets.all(widgetPadding),
                     width: widgetWidth,
-                    height: widgetHeight,
+                    height: maxSize,
                     child: Column(
                       children: twoDList.map((row) => 
                         Row(

@@ -8,7 +8,14 @@ import 'package:sample/pages/MainPage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample/pages/LoadingPage.dart';
 import 'package:sample/pages/LoginPage.dart';
+import 'package:sample/pages/calendar/CalendarPage.dart';
+import 'package:sample/pages/home/HomePage.dart';
+import 'package:sample/pages/planting/PlantingPage.dart';
 import 'package:sample/pages/settings/SettingsEditPage.dart';
+import 'package:sample/pages/settings/SettingsPage.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 class RouterNotifier extends ChangeNotifier {
   final Ref _ref;
@@ -52,58 +59,41 @@ class RouterNotifier extends ChangeNotifier {
     // pages logged
     ShellRoute(
       builder: (context, state, child) => child,
+      navigatorKey: _rootNavigatorKey,
       routes: [
-        GoRoute(
-          name: "home",
-          path: "/",
-          builder: (context, state) => MainPage(key: state.pageKey, path: '/'),
-          // pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          //   context: context, 
-          //   state: state, 
-          //   child: const HomePage(),
-          // ),
-          routes: [
-          ]
-        ),
-        GoRoute(
-          name: "settings",
-          path: "/settings",
-          builder: (context, state) => MainPage(key: state.pageKey, path: '/settings'),
-          // pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          //   context: context, 
-          //   state: state, 
-          //   child: const SettingsPage(),
-          // ),
+        ShellRoute(
+          builder: (context, state, child) => MainPage(location: state.uri.toString()),
           routes: [
             GoRoute(
-              name: "settings-edit",
-              path: "edit",
-              builder: (context, state) => const SettingsEditPage(),
+              name: "home",
+              path: "/",
+              builder: (context, state) => const SizedBox(),
+            ),
+            GoRoute(
+              name: "settings",
+              path: "/settings",
+              builder: (context, state) => throw "",
+              routes: [
+                GoRoute(
+                  name: "settings-edit",
+                  path: "edit",
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const SettingsEditPage(),
+                ),
+              ]
+            ),
+            GoRoute(
+              name: "calendar",
+              path: "/calendar",
+              builder: (context, state) => throw "",
+            ),
+            GoRoute(
+              name: "planting",
+              path: "/planting",
+              builder: (context, state) => const PlantingPage(),
             ),
           ]
-        ),
-        GoRoute(
-          name: "action",
-          path: "/action",
-          builder: (context, state) => MainPage(key: state.pageKey, path: '/action'),
-          // pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          //   context: context, 
-          //   state: state, 
-          //   child: const ActionPage(),
-          // ),
-        ),
-        GoRoute(
-          name: "expert",
-          path: "/expert",
-          builder: (context, state) => MainPage(key: state.pageKey, path: '/expert'),
-          // pageBuilder: (context, state) => buildPageWithDefaultTransition(
-          //   context: context, 
-          //   state: state, 
-          //   child: const ExpertPage(),
-          // ),
-          routes: [
-          ]
-        ),
+        )
       ]
     ),
   ];

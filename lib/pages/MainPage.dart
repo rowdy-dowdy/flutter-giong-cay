@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample/components/sample/AutomaticKeepAliveClientMixin.dart';
 import 'package:sample/pages/calendar/CalendarPage.dart';
 import 'package:sample/pages/home/HomePage.dart';
@@ -10,24 +11,57 @@ import 'package:sample/pages/planting/PlantingPage.dart';
 import 'package:sample/pages/settings/SettingsPage.dart';
 
 class MainPage extends ConsumerStatefulWidget {
-  final String path;
-  const MainPage({required this.path, super.key});
+  final String location;
+  const MainPage({required this.location, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MainPageState();
 }
 
 class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController;
   int currentPageIndex = 0;
 
-  late List<Map<String, dynamic>> menu;
+  late List<Map<String, dynamic>> menu = [
+    {
+      "icon": CupertinoIcons.house,
+      "iconFill": CupertinoIcons.house_fill,
+      "label": "Home",
+      "location": "/",
+      "page": const HomePage(),
+    },
+    {
+      "icon": CupertinoIcons.clock,
+      "iconFill": CupertinoIcons.clock_fill,
+      "label": "Calendar",
+      "location": "/calendar",
+      "page": const CalendarPage(),
+    },
+    {
+      "icon": Icons.eco_outlined,
+      "iconFill": Icons.eco_rounded,
+      "label": "Planting",
+      "location": "/planting",
+      "page": const PlantingPage(),
+    },
+    {
+      "icon": CupertinoIcons.settings,
+      "iconFill": CupertinoIcons.settings,
+      "label": "Personal",
+      "location": "/settings",
+      "page": const SettingsPage(),
+    }
+  ];
 
-  void changePage(String? path) {
-    int index = menu.indexWhere((element) => element['path'] == (path ?? widget.path));
+  void changePage({String? location}) {
+    int index = menu.indexWhere((element) => element['location'] == (location ?? widget.location));
     if (index < 0) {
       index = 0;
     }
+
+    // setState(() {
+    //   currentPageIndex = index;
+    // });
 
     _tabController.animateTo(index);
   }
@@ -36,37 +70,6 @@ class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMix
   void initState() {
     super.initState();
 
-    menu = [
-      {
-        "icon": CupertinoIcons.house,
-        "iconFill": CupertinoIcons.house_fill,
-        "label": "Home",
-        "path": "/",
-        "page": const HomePage(),
-      },
-      {
-        "icon": CupertinoIcons.clock,
-        "iconFill": CupertinoIcons.clock_fill,
-        "label": "Calendar",
-        "path": "/calendar",
-        "page": const CalendarPage(),
-      },
-      {
-        "icon": Icons.eco_outlined,
-        "iconFill": Icons.eco_rounded,
-        "label": "Planting",
-        "path": "/planting",
-        "page": const PlantingPage(),
-      },
-      {
-        "icon": CupertinoIcons.settings,
-        "iconFill": CupertinoIcons.settings,
-        "label": "Personal",
-        "path": "/settings",
-        "page": const SettingsPage(),
-      }
-    ];
-
     _tabController = TabController(length: menu.length, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -74,20 +77,13 @@ class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMix
       });
     });
 
-    // changePage(null);
-  }
-
-  Widget buildPage(int index) {
-    return KeepAliveClient(
-      // key: PageStorageKey(menu[index]['path']),
-      child: menu[index]['page'] as Widget
-    );
+    // changePage();
   }
 
   @override
   void didUpdateWidget(MainPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // changePage();
+    changePage(location: widget.location);
   }
 
   @override
@@ -104,11 +100,12 @@ class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMix
         physics: const NeverScrollableScrollPhysics(),
         children: List.generate(menu.length, (index) => 
           KeepAliveClient(
-            key: PageStorageKey(menu[index]['path']),
+            // key: PageStorageKey(menu[index]['location']),
             child: menu[index]['page'] as Widget
           )
         )
       ),
+      // body: widget.child,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -149,7 +146,11 @@ class _MainPageState extends ConsumerState<MainPage> with TickerProviderStateMix
           ).toList(),
           selectedIndex: currentPageIndex,
           onDestinationSelected: (int index) {
-            _tabController.animateTo(index);
+            // _tabController.animateTo(index);
+            // setState(() {
+            //   currentPageIndex = index;
+            // });
+            context.go(menu[index]['location']);
           },
           // animationDuration: const Duration(milliseconds: 100),
           height: 70,

@@ -62,10 +62,14 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _NotificationsPageState();
 }
 
-class _NotificationsPageState extends ConsumerState<HomePage> {
+class _NotificationsPageState extends ConsumerState<HomePage> with AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Stack(
       children: [
         Container(
