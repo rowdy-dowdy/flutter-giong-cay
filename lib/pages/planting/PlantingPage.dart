@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:zoom_widget/zoom_widget.dart';
+import 'package:sample/utils/utils.dart';
+import 'package:zoom_widget/zoom_widget.dart' as zoom;
 
 class PlantingPage extends ConsumerStatefulWidget {
   const PlantingPage({super.key});
@@ -11,10 +12,18 @@ class PlantingPage extends ConsumerStatefulWidget {
 }
 
 class _PlantingPageState extends ConsumerState<PlantingPage> {
-  final _controller = TransformationController();
+  final _controller = zoom.TransformationController();
+  Key _zoomWidgetKey = UniqueKey();
+
 
   static const double widgetPadding = 12;
   static const double childWidth = 50;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,61 +36,92 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
         Expanded(
           child: LayoutBuilder(
             builder: (context, constrained) {
-              int row = 20;
-              int col = 10;
-              var twoDList = List<List>.generate(row, (i) => List<dynamic>.generate(col, (index) => null, growable: false), growable: false);
+              _zoomWidgetKey = UniqueKey();
+              var data = [
+                ['🌱','🌱','🌱','🌱','🪴','🪴','🪴','🪴'],
+                ['🌱','🌱','🌱','🌱','🌱','🌱','🌱','🌱'],
+                ['🪴','🪴','🪴','🪴','🌱','🌱','🌱','🌱'],
+                ['🪴','🪴','🪴','🪴','🌱','🌱','🌱','🌱'],
+                ['🌱','🌱','🌱','🌱','🥀','🥀','🥀','🥀'],
+                ['🌱','🌱','🌱','🌱','🥀','🥀','🥀','🥀'],
+                ['🌵','🌵','🌵','🌵','🌵','🌵','🌵','🌵']
+              ];
+
+              int itemCol = data[0].length;
+              int itemRow = data.length;
+
               double deviceWidth = constrained.maxWidth;
               double deviceHeight = constrained.maxHeight;
 
-              double widgetWidth = childWidth * col + widgetPadding * 2;
-              double widgetHeight = childWidth * row + widgetPadding * 2;
+              double widgetWidth = childWidth * itemCol + widgetPadding * 2;
+              double widgetHeight = childWidth * itemRow + widgetPadding * 2;
 
               double scaleFactor = (deviceWidth / widgetWidth);
 
               _controller.value = Matrix4.identity() * scaleFactor;
 
-              double maxHeight = widgetWidth / deviceWidth * deviceHeight;
-              double boundaryMargin = 0;
-              if (widgetHeight < maxHeight) {
-                boundaryMargin = deviceHeight + (widgetHeight - widgetWidth).abs();
-              }
-              print({widgetWidth, widgetHeight, maxHeight});
-              print(boundaryMargin);
-
-              double maxSize = maxHeight;
-              if (widgetHeight > maxSize) {
-                maxSize = widgetHeight;
-              }
-              print(maxSize);
-
-              // _controller.value.setTranslationRaw(0,100,0);
-              
               return SizedBox(
                 width: deviceWidth,
                 height: deviceHeight,
-                child: InteractiveViewer(
-                  minScale: scaleFactor,
-                  maxScale: scaleFactor * 10,
-                  constrained: false,
-                  // boundaryMargin: EdgeInsets.symmetric(vertical: boundaryMargin),
+                child: zoom.Zoom(
+                  initTotalZoomOut: true,
+                  backgroundColor: Colors.transparent,
+                  // initScale: scaleFactor,
                   transformationController: _controller,
-                  child: Container(
-                    color: Colors.green,
-                    padding: const EdgeInsets.all(widgetPadding),
-                    width: widgetWidth,
-                    height: maxSize,
-                    child: Column(
-                      children: twoDList.map((row) => 
-                        Row(
-                          children: row.map((e) => 
-                            Container(
-                              width: childWidth,
-                              height: childWidth,
-                              color: Colors.red,
+                  maxScale: 5,
+                  key: _zoomWidgetKey,
+                  child: Center(
+                    child: Container(
+                      width: widgetWidth,
+                      height: widgetHeight,
+                      padding: const EdgeInsets.all(widgetPadding),
+                      child: Column(
+                        children: data.asMap().map((i, row) {
+                          return MapEntry(
+                            i,
+                            Row(
+                              children: row.asMap().map((i2, col) {
+                                return MapEntry(
+                                  i2,
+                                  InkWell(
+                                    onTap: () => showBottomSheetCustom(
+                                      context: context, 
+                                      child: Center(child: Text(
+                                        col,
+                                        style: const TextStyle(fontSize: 100),
+                                      ))
+                                    ),
+                                    child: Container(
+                                      width: childWidth,
+                                      height: childWidth,
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            width: 4,
+                                            color: Theme.of(context).colorScheme.outline,
+                                          ),
+                                          left: (i % 2 != 0 && i2 % itemCol == 0) ? BorderSide(
+                                            width: 4,
+                                            color: Theme.of(context).colorScheme.outline,
+                                          ) : BorderSide.none,
+                                          right: (i > 0 && i % 2 == 0 && i2 - itemCol + 1 % itemCol == 0) ? BorderSide(
+                                            width: 4,
+                                            color: Theme.of(context).colorScheme.outline,
+                                          ) : BorderSide.none,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        col,
+                                        style: const TextStyle(fontSize: 30),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).values.toList(),
                             )
-                          ).toList(),
-                        )
-                      ).toList(),
+                          );
+                        }).values.toList(),
+                      ),
                     ),
                   ),
                 ),
@@ -90,6 +130,49 @@ class _PlantingPageState extends ConsumerState<PlantingPage> {
           )
         )
       ],
+    );
+  }
+}
+
+class ZoomableWidget extends StatefulWidget {
+  @override
+  _ZoomableWidgetState createState() => _ZoomableWidgetState();
+}
+
+class _ZoomableWidgetState extends State<ZoomableWidget> {
+  double _scale = 1.0;
+  double _previousScale = 1.0;
+
+  void _onScaleStart(ScaleStartDetails details) {
+    _previousScale = _scale;
+  }
+
+  void _onScaleUpdate(ScaleUpdateDetails details) {
+    setState(() {
+      _scale = _previousScale * details.scale;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: SingleChildScrollView(
+        child: Center(
+          child: GestureDetector(
+            onScaleStart: _onScaleStart,
+            onScaleUpdate: _onScaleUpdate,
+            child: Transform.scale(
+              scale: _scale,
+              child: Container(
+                width: 2000,
+                height: 2000,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

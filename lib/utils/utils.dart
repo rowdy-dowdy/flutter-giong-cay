@@ -4,15 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/config/app.dart';
+import 'package:sample/services/theme_data.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 void showSnackBar({required BuildContext context, required String content}) {
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       elevation: 6,
-      // backgroundColor: primary.withOpacity(0.8),
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       behavior: SnackBarBehavior.floating,
-      content: Text(content)
+      content: Text(content, style: TextStyle( 
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        fontWeight: FontWeight.w600
+      ),)
     )
   );
 }
@@ -282,4 +288,61 @@ buildCupertinoDatePicker(BuildContext context, DateTime initialDate, bool select
   );
 
   return picked;
+}
+
+void showBottomSheetCustom ({
+  required BuildContext context, 
+  required Widget child, 
+  double maxChildSize = 0.9,
+  double initialChildSize = 0.4,
+  double minChildSize = 0.3
+}) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20)
+      )
+    ),
+    constraints: const BoxConstraints(
+      minWidth: double.infinity
+    ),
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    elevation: 0,
+    barrierColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
+    builder: (context) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: initialChildSize,
+      maxChildSize: maxChildSize,
+      minChildSize: minChildSize,
+      
+      builder: (context, scrollController) => Stack(
+        alignment: AlignmentDirectional.topCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            top: -15,
+            child: Container(
+              width: 60,
+              height: 7,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(5)
+              ),
+            )
+          ),
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: padding, vertical: 12),
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: child
+            )
+          ),
+        ],
+      )
+    )
+  );
 }
